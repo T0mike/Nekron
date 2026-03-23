@@ -83,6 +83,8 @@ public:
         }
         return true;
     }
+
+    std::vector<Weapon>& getWeapons() { return weapons; }
 };
 
 class Zombie{
@@ -130,8 +132,8 @@ public:
         return *this;
     }
 
-    void takeDamage(int damage){
-        this->hp -= damage;
+    void takeDamage(int amount){
+        this->hp -= amount;
     }
 
     bool isAlive() const{
@@ -193,6 +195,8 @@ int main() {
     std::cout<<pistol;
     Player Tomike("Tomike", 200, 20, 2.5, 3.5);
     Tomike.addWeapon(pistol);
+    Tomike.getWeapons()[0].fire();
+    Tomike.getWeapons()[0].reload();
     Zombie Mihai("Mihai", 10, 5, 2.5, 3.5, 5);
     std::cout<<pistol;
     std::cout<<Tomike;
