@@ -1,1 +1,10 @@
 ext/** linguist-vendored
+.github/** linguist-generated
+cmake/** linguist-generated
+scripts/** linguist-generated
+*.yml linguist-generated
+*.json linguist-generated
+*.sh linguist-generated
+*.md linguist-documentation
+*.txt linguist-documentation
+CMakeLists.txt linguist-generated
