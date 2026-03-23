@@ -1,19 +1,35 @@
 #include <iostream>
 #include <vector>
-
+#include <algorithm>
 class Weapon {
     std::string name;
     int damage;
     double fireRate;
     int ammo;
+    int maxAmmo;
     int range;
 public:
-    Weapon(const std::string& name, int damage, double fireRate, int ammo, int range){
+    Weapon(const std::string& name, int damage, double fireRate, int ammo, int maxAmmo, int range){
         this->name = name;
         this->damage = damage;
         this->fireRate = fireRate;
         this->ammo = ammo;
+        this->maxAmmo = maxAmmo;
         this->range = range;
+    }
+
+    void reload(){
+        this->ammo = this -> maxAmmo;
+    }
+
+    bool isOutOfAmmo(){
+        return this->ammo == 0;
+    }
+
+    bool fire() {
+        if(isOutOfAmmo()) return false;
+        this->ammo--;
+        return true;
     }
 
     friend std::ostream& operator<<(std::ostream& os, const Weapon& w) {
@@ -21,6 +37,7 @@ public:
         os << "damage: " << w.damage << "\n";
         os << "fireRate: " << w.fireRate << "\n";
         os << "ammo: " << w.ammo << "\n";
+        os << "maxAmmo: " << w.maxAmmo << "\n";
         os << "range: " << w.range << "\n";
         return os;
     }
@@ -54,6 +71,17 @@ public:
 
     void addWeapon(const Weapon& w){
         weapons.push_back(w);
+    }
+
+    void takeDamage(int damage){
+        this->hp -= damage;
+    }
+
+    bool isAlive(){
+        if(this->hp <= 0){
+            return false;
+        }
+        return true;
     }
 };
 
@@ -102,19 +130,82 @@ public:
         return *this;
     }
 
+    void takeDamage(int damage){
+        this->hp -= damage;
+    }
+
+    bool isAlive() const{
+        if(this->hp <= 0){
+            return false;
+        }
+        return true;
+    }
+
+    const std::string& getName() const {
+        return name;
+    }
+
     ~Zombie() {
         std::cout << "Zombie " << name << " destroyed\n";
     }
 };
 
+class Game{
+    Player player;
+    std::vector<Zombie> zombies;
+    int score;
+    int wave;
+    public:
+    Game(const std::string& playerName, int playerHp, double playerSpeed, double x, double y) 
+        : player(playerName, playerHp, playerSpeed, x, y), score(0), wave(1) {}
+
+    Player& getPlayer() { return player; }
+    std::vector<Zombie>& getZombies() { return zombies; }
+
+    void addZombie(const Zombie& z){
+        zombies.push_back(z);
+    }
+
+    bool isGameOver(){
+        return !player.isAlive();
+    }
+
+    void removeDeadZombies() {
+        zombies.erase(
+            std::remove_if(zombies.begin(), zombies.end(), 
+                [](const Zombie& z) { return !z.isAlive(); }),
+            zombies.end()
+        );
+    }
+    
+    friend std::ostream& operator<<(std::ostream& os, const Game& g) {
+        os << g.player;
+        for(const auto& z : g.zombies)
+            os << z;
+        os << "score: " << g.score << "\n";
+        os << "wave: " << g.wave << "\n";
+        return os;
+    }
+};
+
 int main() {
-    Weapon pistol("pistol", 10, 1, 10, 20);
+    Weapon pistol("pistol", 10, 1, 10, 10, 20);
     std::cout<<pistol;
     Player Tomike("Tomike", 200, 20, 2.5, 3.5);
     Tomike.addWeapon(pistol);
-    Zombie Mihai("Mihai", 50, 5, 2.5, 3.5, 5);
+    Zombie Mihai("Mihai", 10, 5, 2.5, 3.5, 5);
     std::cout<<pistol;
     std::cout<<Tomike;
     std::cout<<Mihai;
+    Game Test("Dummy", 100, 10, 0, 0);
+    Test.addZombie(Mihai);
+    Test.getZombies()[0].takeDamage(10);
+    if(!Mihai.isAlive()){
+        std::cout << "Zombie " << Mihai.getName() << " a murit!\n";
+    }
+    Test.removeDeadZombies();
+    Test.getPlayer().takeDamage(100);
+    Test.isGameOver();
+    std::cout << Test;
     return 0;
 }
