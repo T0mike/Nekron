@@ -40,6 +40,10 @@ defaults:
     # https://github.com/saxbophone/CPP20-Cross-Platform-Template
     shell: bash
 
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
 jobs:
   cppcheck:
     name: "Cppcheck"
