@@ -54,7 +54,10 @@ add_executable(${MAIN_EXECUTABLE_NAME}
 )
 target_sources(${MAIN_EXECUTABLE_NAME}
     PRIVATE
-        
+        src/Weapon.cpp
+        src/Player.cpp
+        src/Zombie.cpp
+        src/Game.cpp
 )
 
 # NOTE: Add all defined targets (e.g. executables, libraries, etc. )
