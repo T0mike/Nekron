@@ -58,6 +58,9 @@ target_sources(${MAIN_EXECUTABLE_NAME}
         src/Player.cpp
         src/Zombie.cpp
         src/Game.cpp
+        src/ZombieNormal.cpp
+        src/ZombieTank.cpp
+        src/ZombieBoss.cpp
 )
 
 # NOTE: Add all defined targets (e.g. executables, libraries, etc. )

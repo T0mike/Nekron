@@ -3,27 +3,33 @@
 #include "include/Player.h"
 #include "include/Zombie.h"
 #include "include/Game.h"
+#include "include/ZombieNormal.h"
+#include "include/ZombieTank.h"
+#include "include/ZombieBoss.h"
 
 int main() {
-    Weapon pistol("pistol", 10, 1, 10, 10, 20);
-    std::cout << pistol;
-    Player Tomike("Tomike", 200, 20, 2.5, 3.5);
-    Tomike.addWeapon(pistol);
-    Tomike.getWeapons()[0].fire();
-    Tomike.getWeapons()[0].reload();
-    Zombie Mihai("Mihai", 10, 5, 2.5, 3.5, 5);
-    std::cout << pistol;
-    std::cout << Tomike;
-    std::cout << Mihai;
-    Game Test("Dummy", 100, 10, 0, 0);
-    Test.addZombie(Mihai);
-    Test.getZombies()[0].takeDamage(10);
-    if (!Mihai.isAlive()) {
-        std::cout << "Zombie " << Mihai.getName() << " a murit!\n";
-    }
-    Test.removeDeadZombies();
-    Test.getPlayer().takeDamage(100);
-    Test.isGameOver();
-    std::cout << Test;
+    ZombieNormal normal("Ion", 100, 5, 0, 0, 10);
+    ZombieTank tank("Golem", 0, 0);
+    ZombieBoss boss("Diablo", 0, 0);
+
+    // test afisare prin pointer de baza (cerinta temei)
+    Zombie* z1 = &normal;
+    Zombie* z2 = &tank;
+    Zombie* z3 = &boss;
+
+    std::cout << *z1;
+    std::cout << *z2;
+    std::cout << *z3;
+
+    // test attack virtual
+    z1->attack();
+    z2->attack();
+    z3->attack();
+
+    // test takeDamage - tank-ul primeste mai putin
+    z1->takeDamage(15);
+    z2->takeDamage(15); // tank: 15 - 10 armor = 5 damage real
+    std::cout << *z1;
+    std::cout << *z2;
     return 0;
 }

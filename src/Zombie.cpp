@@ -34,12 +34,16 @@ Zombie::~Zombie() {
 }
 
 std::ostream& operator<<(std::ostream& os, const Zombie& z) {
-    os << "name: " << z.name << "\n";
-    os << "hp: " << z.hp << "\n";
-    os << "speed: " << z.speed << "\n";
-    os << "x: " << z.x << " " << "y: " << z.y << "\n";
-    os << "damage: " << z.damage << "\n";
+    z.display(os);
     return os;
+}
+
+void Zombie::display(std::ostream& os) const {
+    os << "name: " << name << "\n";
+    os << "hp: " << hp << "\n";
+    os << "speed: " << speed << "\n";
+    os << "x: " << x << " " << "y: " << y << "\n";
+    os << "damage: " << damage << "\n";
 }
 
 void Zombie::takeDamage(int amount) {
