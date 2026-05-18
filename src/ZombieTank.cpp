@@ -24,3 +24,13 @@ void ZombieTank::display(std::ostream& os) const {
     Zombie::display(os);
     os << "armor: " << armor << "\n";
 }
+
+void swap(ZombieTank& a, ZombieTank& b) {
+    swap(static_cast<Zombie&>(a), static_cast<Zombie&>(b));
+    std::swap(a.armor, b.armor);
+}
+
+ZombieTank& ZombieTank::operator=(ZombieTank other) {
+    swap(*this, other);
+    return *this;
+}

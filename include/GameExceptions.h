@@ -1,0 +1,28 @@
+#ifndef GAME_EXCEPTIONS_H
+#define GAME_EXCEPTIONS_H
+#include <exception>
+#include <string>
+
+class GameException : public std::exception {
+    std::string message;
+public:
+    GameException(const std::string& msg) : message(msg) {}
+    const char* what() const noexcept override { return message.c_str(); }
+};
+
+class GameOverException : public GameException {
+public:
+    GameOverException(const std::string& msg) : GameException(msg) {}
+};
+
+class OutOfAmmoException : public GameException {
+public:
+    OutOfAmmoException(const std::string& msg) : GameException(msg) {}
+};
+
+class InvalidWeaponException : public GameException {
+public:
+    InvalidWeaponException(const std::string& msg) : GameException(msg) {}
+};
+
+#endif

@@ -4,6 +4,8 @@
 #include <ostream>
 
 class Zombie {
+private:
+    static int count;
 protected:
     std::string name;
     int hp;
@@ -23,8 +25,12 @@ public:
     virtual void takeDamage(int amount);
     virtual bool isAlive() const;
     const std::string& getName() const;
+    void increaseHp(int amount);
+
+    static int getCount();
 
     friend std::ostream& operator<<(std::ostream& os, const Zombie& z);
+    friend void swap(Zombie& a, Zombie& b);
 };
-
+void swap(Zombie& a, Zombie& b);
 #endif

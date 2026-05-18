@@ -12,6 +12,9 @@ public:
     void attack() override;
     void takeDamage(int amount) override;
 
+    ZombieTank& operator=(ZombieTank other);
+    friend void swap(ZombieTank& a, ZombieTank& b);
+
 protected:
     void display(std::ostream& os) const override;
 };

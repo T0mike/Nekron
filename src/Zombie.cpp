@@ -1,5 +1,8 @@
 #include "../include/Zombie.h"
 #include <iostream>
+#include <algorithm>
+
+int Zombie::count = 0;
 
 Zombie::Zombie(const std::string& name, int hp, double speed, double x, double y, int damage) {
     this->name = name;
@@ -8,6 +11,7 @@ Zombie::Zombie(const std::string& name, int hp, double speed, double x, double y
     this->x = x;
     this->y = y;
     this->damage = damage;
+    count++;
 }
 
 Zombie::Zombie(const Zombie& z) {
@@ -17,20 +21,23 @@ Zombie::Zombie(const Zombie& z) {
     this->x = z.x;
     this->y = z.y;
     this->damage = z.damage;
+    count++;
 }
 
 Zombie& Zombie::operator=(const Zombie& other) {
-    this->name = other.name;
-    this->hp = other.hp;
-    this->speed = other.speed;
-    this->x = other.x;
-    this->y = other.y;
-    this->damage = other.damage;
+    name = other.name;
+    hp = other.hp;
+    speed = other.speed;
+    x = other.x;
+    y = other.y;
+    damage = other.damage;
     return *this;
 }
 
+
 Zombie::~Zombie() {
     std::cout << "Zombie " << name << " destroyed\n";
+    count--;
 }
 
 std::ostream& operator<<(std::ostream& os, const Zombie& z) {
@@ -57,4 +64,21 @@ bool Zombie::isAlive() const {
 
 const std::string& Zombie::getName() const {
     return name;
+}
+
+int Zombie::getCount() {
+    return count;
+}
+
+void Zombie::increaseHp(int amount) {
+    hp += amount;
+}
+
+void swap(Zombie& a, Zombie& b) {
+    std::swap(a.name, b.name);
+    std::swap(a.hp, b.hp);
+    std::swap(a.speed, b.speed);
+    std::swap(a.x, b.x);
+    std::swap(a.y, b.y);
+    std::swap(a.damage, b.damage);
 }

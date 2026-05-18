@@ -11,6 +11,9 @@ public:
     Zombie* clone() const override;
     void attack() override;
 
+    ZombieBoss& operator=(ZombieBoss other);
+    friend void swap(ZombieBoss& a, ZombieBoss& b);
+
 protected:
     void display(std::ostream& os) const override;
 };

@@ -18,3 +18,12 @@ void ZombieNormal::display(std::ostream& os) const {
     os << "[Normal] ";
     Zombie::display(os);
 }
+
+void swap(ZombieNormal& a, ZombieNormal& b) {
+    swap(static_cast<Zombie&>(a), static_cast<Zombie&>(b));
+}
+
+ZombieNormal& ZombieNormal::operator=(ZombieNormal other) {
+    swap(*this, other);
+    return *this;
+}

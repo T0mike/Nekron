@@ -23,3 +23,13 @@ void ZombieBoss::display(std::ostream& os) const {
     Zombie::display(os);
     os << "phase: " << phase << "\n";
 }
+
+void swap(ZombieBoss& a, ZombieBoss& b) {
+    swap(static_cast<Zombie&>(a), static_cast<Zombie&>(b));
+    std::swap(a.phase, b.phase);
+}
+
+ZombieBoss& ZombieBoss::operator=(ZombieBoss other) {
+    swap(*this, other);
+    return *this;
+}

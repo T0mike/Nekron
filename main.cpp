@@ -1,4 +1,5 @@
 #include <iostream>
+#include <memory>
 #include "include/Weapon.h"
 #include "include/Player.h"
 #include "include/Zombie.h"
@@ -6,6 +7,8 @@
 #include "include/ZombieNormal.h"
 #include "include/ZombieTank.h"
 #include "include/ZombieBoss.h"
+#include "include/GameExceptions.h" 
+
 
 int main() {
     ZombieNormal normal("Ion", 100, 5, 0, 0, 10);
@@ -31,5 +34,26 @@ int main() {
     z2->takeDamage(15); // tank: 15 - 10 armor = 5 damage real
     std::cout << *z1;
     std::cout << *z2;
+
+    Game Test("Dummy", 100, 10, 0, 0);
+
+    try {
+        Test.getPlayer().takeDamage(999);
+    } catch (const GameException& e) {
+        std::cout << e.what() << "\n";
+    }
+    try {
+        Weapon pistol("pistol", 10, 1, 0, 10, 20);
+        pistol.fire();
+    } catch (const OutOfAmmoException& e) {
+        std::cout << e.what() << "\n";
+    }
+    
+    try {
+        Weapon invalid("glitch", -10, 1, 5, 5, 10);
+    } catch (const InvalidWeaponException& e) {
+        std::cout << e.what() << "\n";
+    }
+    
     return 0;
 }

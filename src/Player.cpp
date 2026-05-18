@@ -1,4 +1,5 @@
 #include "../include/Player.h"
+#include "../include/GameExceptions.h"
 
 Player::Player(const std::string& name, int hp, double speed, double x, double y) {
     this->name = name;
@@ -24,9 +25,11 @@ void Player::addWeapon(const Weapon& w) {
 
 void Player::takeDamage(int damage) {
     this->hp -= damage;
+    if (hp <= 0)
+        throw GameOverException("Game over!");
 }
 
-bool Player::isAlive() {
+bool Player::isAlive() const {
     if (this->hp <= 0) return false;
     return true;
 }

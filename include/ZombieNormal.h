@@ -10,6 +10,9 @@ public:
     Zombie* clone() const override;
     void attack() override;
 
+    ZombieNormal& operator=(ZombieNormal other);
+    friend void swap(ZombieNormal& a, ZombieNormal& b);
+
 protected:
     void display(std::ostream& os) const override;
 };

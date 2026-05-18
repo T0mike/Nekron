@@ -1,6 +1,10 @@
 #include "../include/Weapon.h"
+#include "../include/GameExceptions.h"
+
 
 Weapon::Weapon(const std::string& name, int damage, double fireRate, int ammo, int maxAmmo, int range) {
+    if (damage < 0 || ammo < 0 || maxAmmo < 0 || range < 0)
+        throw InvalidWeaponException("Weapon cu stats invalide!");
     this->name = name;
     this->damage = damage;
     this->fireRate = fireRate;
@@ -13,12 +17,13 @@ void Weapon::reload() {
     this->ammo = this->maxAmmo;
 }
 
-bool Weapon::isOutOfAmmo() {
+bool Weapon::isOutOfAmmo() const {
     return this->ammo == 0;
 }
 
 bool Weapon::fire() {
-    if (isOutOfAmmo()) return false;
+    if (isOutOfAmmo())
+        throw OutOfAmmoException("Out of ammo!");
     this->ammo--;
     return true;
 }

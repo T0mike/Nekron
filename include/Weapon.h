@@ -13,7 +13,7 @@ class Weapon {
 public:
     Weapon(const std::string& name, int damage, double fireRate, int ammo, int maxAmmo, int range);
     void reload();
-    bool isOutOfAmmo();
+    bool isOutOfAmmo() const;
     bool fire();
     friend std::ostream& operator<<(std::ostream& os, const Weapon& w);
 };

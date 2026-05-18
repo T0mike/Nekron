@@ -5,6 +5,9 @@
 #include <memory>
 #include "Player.h"
 #include "Zombie.h"
+#include "ZombieBoss.h"
+#include "ZombieNormal.h"
+#include"ZombieTank.h"
 
 class Game {
     Player player;
@@ -16,8 +19,11 @@ public:
     Player& getPlayer();
     std::vector<std::unique_ptr<Zombie>>& getZombies();
     void addZombie(std::unique_ptr<Zombie> z);
-    bool isGameOver();
+    bool isGameOver() const;
     void removeDeadZombies();
+    ZombieBoss* findBoss();
+    void onWaveEnd();
+    void applyDamageToAll(int amount);
     friend std::ostream& operator<<(std::ostream& os, const Game& g);
 };
 
