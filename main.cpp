@@ -8,7 +8,9 @@
 #include "include/ZombieTank.h"
 #include "include/ZombieBoss.h"
 #include "include/GameExceptions.h"
+#ifdef USE_SFML
 #include <SFML/Graphics.hpp>
+#endif
 
 
 int main() {

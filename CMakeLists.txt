@@ -22,20 +22,24 @@ include(cmake/CopyHelper.cmake)
 ###############################################################################
 
 # external dependencies with FetchContent
-include(FetchContent)
+option(USE_SFML "Build with SFML for graphics" OFF)
 
-set(FETCHCONTENT_QUIET OFF CACHE INTERNAL "Override verbose output" FORCE)
-set(FETCHCONTENT_UPDATES_DISCONNECTED ON CACHE INTERNAL "Override update strategy" FORCE)
+if(USE_SFML)
+    include(FetchContent)
 
-FetchContent_Declare(
-    SFML
-    GIT_REPOSITORY https://github.com/SFML/SFML.git
-    GIT_TAG        2.6.1
-    GIT_SHALLOW    1
-    GIT_PROGRESS   ON
-)
+    set(FETCHCONTENT_QUIET OFF CACHE INTERNAL "Override verbose output" FORCE)
+    set(FETCHCONTENT_UPDATES_DISCONNECTED ON CACHE INTERNAL "Override update strategy" FORCE)
 
-FetchContent_MakeAvailable(SFML)
+    FetchContent_Declare(
+        SFML
+        GIT_REPOSITORY https://github.com/SFML/SFML.git
+        GIT_TAG        2.6.1
+        GIT_SHALLOW    1
+        GIT_PROGRESS   ON
+    )
+
+    FetchContent_MakeAvailable(SFML)
+endif()
 
 ###############################################################################
 
@@ -78,7 +82,10 @@ target_include_directories(${MAIN_EXECUTABLE_NAME} SYSTEM PRIVATE
 )
 # target_include_directories(${MAIN_EXECUTABLE_NAME} SYSTEM PRIVATE ${<SomeLib>_SOURCE_DIR}/include)
 # target_link_directories(${MAIN_EXECUTABLE_NAME} PRIVATE ${<SomeLib>_BINARY_DIR}/lib)
-target_link_libraries(${MAIN_EXECUTABLE_NAME} sfml-graphics sfml-window sfml-system sfml-audio)
+if(USE_SFML)
+    target_link_libraries(${MAIN_EXECUTABLE_NAME} sfml-graphics sfml-window sfml-system sfml-audio)
+    target_compile_definitions(${MAIN_EXECUTABLE_NAME} PRIVATE USE_SFML)
+endif()
 
 ###############################################################################
 
