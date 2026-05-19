@@ -17,7 +17,6 @@ class Game {
 public:
     Game(const std::string& playerName, int playerHp, double playerSpeed, double x, double y);
     Player& getPlayer();
-    std::vector<std::unique_ptr<Zombie>>& getZombies();
     void addZombie(std::unique_ptr<Zombie> z);
     bool isGameOver() const;
     void removeDeadZombies();

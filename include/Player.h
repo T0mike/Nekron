@@ -17,7 +17,6 @@ public:
     void addWeapon(const Weapon& w);
     void takeDamage(int damage);
     bool isAlive() const;
-    std::vector<Weapon>& getWeapons();
 };
 
 #endif

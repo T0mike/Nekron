@@ -33,7 +33,3 @@ bool Player::isAlive() const {
     if (this->hp <= 0) return false;
     return true;
 }
-
-std::vector<Weapon>& Player::getWeapons() {
-    return weapons;
-}

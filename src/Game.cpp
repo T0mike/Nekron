@@ -6,7 +6,6 @@ Game::Game(const std::string& playerName, int playerHp, double playerSpeed, doub
     : player(playerName, playerHp, playerSpeed, x, y), score(0), wave(1) {}
 
 Player& Game::getPlayer() { return player; }
-std::vector<std::unique_ptr<Zombie>>& Game::getZombies() { return zombies; }
 
 void Game::addZombie(std::unique_ptr<Zombie> z) {
     zombies.push_back(std::move(z));
