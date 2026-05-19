@@ -8,6 +8,7 @@
 #include "ZombieBoss.h"
 #include "ZombieNormal.h"
 #include"ZombieTank.h"
+#include "ZombieRunner.h"
 
 class Game {
     Player player;

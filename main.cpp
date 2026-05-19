@@ -8,6 +8,7 @@
 #include "include/ZombieTank.h"
 #include "include/ZombieBoss.h"
 #include "include/GameExceptions.h"
+#include "include/ZombieRunner.h"
 #ifdef USE_SFML
 #include <SFML/Graphics.hpp>
 #endif
@@ -45,6 +46,7 @@ int main() {
     game.addZombie(std::make_unique<ZombieNormal>("Ion2", 100, 5, 0, 0, 10));
     game.addZombie(std::make_unique<ZombieTank>("Golem2", 0, 0));
     game.addZombie(std::make_unique<ZombieBoss>("Diablo2", 0, 0));
+    game.addZombie(std::make_unique<ZombieRunner>("Sprinter", 5, 5));
 
     game.applyDamageToAll(50);
     game.removeDeadZombies();

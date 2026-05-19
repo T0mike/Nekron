@@ -55,6 +55,10 @@ void Game::onWaveEnd() {
             ZombieBoss* boss = dynamic_cast<ZombieBoss*>(z.get());
             if (boss != nullptr)
                 boss->increaseHp(150);
+            
+            ZombieRunner* runner = dynamic_cast<ZombieRunner*>(z.get());
+            if(runner != nullptr)
+                runner->increaseHp(30);
         }
     }
 }

@@ -62,6 +62,7 @@ target_sources(${MAIN_EXECUTABLE_NAME}
         src/ZombieNormal.cpp
         src/ZombieTank.cpp
         src/ZombieBoss.cpp
+        src/ZombieRunner.cpp
 )
 
 # NOTE: Add all defined targets (e.g. executables, libraries, etc. )
