@@ -1,6 +1,8 @@
 #include "../include/Game.h"
-#include <algorithm>
+#include "../include/ZombieFactory.h"
+#include "../include/GameStatistics.h"
 #include <iostream>
+#include <string>
 
 Game::Game(const std::string& playerName, int playerHp, double playerSpeed, double x, double y)
     : player(playerName, playerHp, playerSpeed, x, y), score(0), wave(1) {}
@@ -8,7 +10,15 @@ Game::Game(const std::string& playerName, int playerHp, double playerSpeed, doub
 Player& Game::getPlayer() { return player; }
 
 void Game::addZombie(std::unique_ptr<Zombie> z) {
-    zombies.push_back(std::move(z));
+    zombies.add(std::move(z));
+}
+
+void Game::spawnWave(int count) {
+    for (int i = 0; i < count; i++) {
+        ZombieType type = static_cast<ZombieType>(i % 4);
+        zombies.add(ZombieFactory::create(type, "Wave" + std::to_string(wave) + "_" + std::to_string(i),
+                                          i * 10.0, 0.0));
+    }
 }
 
 bool Game::isGameOver() const {
@@ -16,32 +26,28 @@ bool Game::isGameOver() const {
 }
 
 void Game::removeDeadZombies() {
-    zombies.erase(
-        std::remove_if(zombies.begin(), zombies.end(),
-            [](const std::unique_ptr<Zombie>& z) { return !z->isAlive(); }),
-        zombies.end()
-    );
+    zombies.removeDead();
 }
 
 std::ostream& operator<<(std::ostream& os, const Game& g) {
     os << g.player;
-    for (const auto& z : g.zombies)
-        os << *z;
+    os << g.zombies;
     os << "score: " << g.score << "\n";
     os << "wave: " << g.wave << "\n";
     return os;
 }
 
 ZombieBoss* Game::findBoss() {
-    for (auto& z : zombies) {
-        ZombieBoss* boss = dynamic_cast<ZombieBoss*>(z.get());
-        if (boss != nullptr) return boss;
-    }
-    return nullptr;
+    return findFirstOf<ZombieBoss>(zombies);
+}
+
+ZombieRunner* Game::findRunner() {
+    return findFirstOf<ZombieRunner>(zombies);
 }
 
 void Game::onWaveEnd() {
     wave++;
+    GameStatistics::instance().recordWave(wave);
     for (auto& z : zombies) {
         if (wave % 2 == 0) {
             ZombieNormal* normal = dynamic_cast<ZombieNormal*>(z.get());
@@ -55,9 +61,9 @@ void Game::onWaveEnd() {
             ZombieBoss* boss = dynamic_cast<ZombieBoss*>(z.get());
             if (boss != nullptr)
                 boss->increaseHp(150);
-            
+
             ZombieRunner* runner = dynamic_cast<ZombieRunner*>(z.get());
-            if(runner != nullptr)
+            if (runner != nullptr)
                 runner->increaseHp(30);
         }
     }
@@ -66,7 +72,10 @@ void Game::onWaveEnd() {
 void Game::applyDamageToAll(int amount) {
     for (auto& z : zombies) {
         z->takeDamage(amount);
-        if (!z->isAlive()) 
+        if (!z->isAlive()) {
             std::cout << z->getName() << " a murit!\n";
+            score += 10;
+            GameStatistics::instance().recordKill(10);
+        }
     }
 }

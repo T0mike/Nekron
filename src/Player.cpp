@@ -1,5 +1,6 @@
 #include "../include/Player.h"
 #include "../include/GameExceptions.h"
+#include <memory>
 
 Player::Player(const std::string& name, int hp, double speed, double x, double y) {
     this->name = name;
@@ -14,13 +15,12 @@ std::ostream& operator<<(std::ostream& os, const Player& p) {
     os << "hp: " << p.hp << "\n";
     os << "speed: " << p.speed << "\n";
     os << "x: " << p.x << " " << "y: " << p.y << "\n";
-    for (const auto& w : p.weapons)
-        os << w;
+    os << p.weapons;
     return os;
 }
 
 void Player::addWeapon(const Weapon& w) {
-    weapons.push_back(w);
+    weapons.add(std::make_unique<Weapon>(w));
 }
 
 void Player::takeDamage(int damage) {

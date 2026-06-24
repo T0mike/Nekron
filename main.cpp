@@ -9,6 +9,9 @@
 #include "include/ZombieBoss.h"
 #include "include/GameExceptions.h"
 #include "include/ZombieRunner.h"
+#include "include/ZombieFactory.h"
+#include "include/GameStatistics.h"
+#include "include/EntityPool.h"
 #ifdef USE_SFML
 #include <SFML/Graphics.hpp>
 #endif
@@ -43,10 +46,11 @@ int main() {
     std::cout << "Numar zombi vii: " << Zombie::getCount() << "\n";
 
     Game game("Player1", 100, 10, 0, 0);
-    game.addZombie(std::make_unique<ZombieNormal>("Ion2", 100, 5, 0, 0, 10));
-    game.addZombie(std::make_unique<ZombieTank>("Golem2", 0, 0));
-    game.addZombie(std::make_unique<ZombieBoss>("Diablo2", 0, 0));
-    game.addZombie(std::make_unique<ZombieRunner>("Sprinter", 5, 5));
+
+    game.addZombie(ZombieFactory::create(ZombieType::Normal, "Ion2", 0, 0));
+    game.addZombie(ZombieFactory::create(ZombieType::Tank, "Golem2", 0, 0));
+    game.addZombie(ZombieFactory::create(ZombieType::Boss, "Diablo2", 0, 0));
+    game.spawnWave(4);
 
     game.applyDamageToAll(50);
     game.removeDeadZombies();
@@ -56,6 +60,12 @@ int main() {
     if (foundBoss != nullptr) {
         std::cout << "Boss gasit prin dynamic_cast:\n" << *foundBoss;
         foundBoss->attack();
+    }
+
+    ZombieRunner* foundRunner = game.findRunner();
+    if (foundRunner != nullptr) {
+        std::cout << "Runner gasit prin dynamic_cast:\n" << *foundRunner;
+        foundRunner->attack();
     }
 
     Weapon pistol("pistol", 10, 1, 5, 10, 20);
@@ -89,6 +99,8 @@ int main() {
     std::cout << "Game over? " << (game.isGameOver() ? "da" : "nu") << "\n";
 
     std::cout << game;
+
+    std::cout << GameStatistics::instance();
 
     return 0;
 
