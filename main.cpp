@@ -102,6 +102,18 @@ int main() {
 
     std::cout << GameStatistics::instance();
 
+    EntityPool<Zombie> horde;
+    horde.add(ZombieFactory::create(ZombieType::Runner, "Speedy", 0, 0));
+    horde.add(ZombieFactory::create(ZombieType::Tank, "Bulwark", 0, 0));
+    horde.forEach([](Zombie& z) { z.attack(); });
+
+    GameStatistics& stats = GameStatistics::instance();
+    std::cout << "Kills: " << stats.getTotalKills()
+              << ", Score: " << stats.getTotalScore()
+              << ", Wave max: " << stats.getHighestWave() << "\n";
+    stats.reset();
+    std::cout << "Dupa reset -> kills: " << stats.getTotalKills() << "\n";
+
     return 0;
 
     // sf::RenderWindow window(sf::VideoMode(800, 600), "Nekron");
