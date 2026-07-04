@@ -121,6 +121,39 @@ int main() {
     horde.add(ZombieFactory::create(ZombieType::Tank, "Bulwark", 0, 0));
     horde.forEach([](Zombie& z) { z.attack(); });
 
+    Player& erou = game.getPlayer();
+    erou.heal(20, 100);
+    std::cout << "Eroul are " << erou.weaponCount() << " arme\n";
+    if (erou.weaponCount() > 0) {
+        Weapon& arma = erou.weaponAt(0);
+        arma.addAmmo(3);
+        std::cout << "Arma: " << arma.getAmmo() << "/" << arma.getMaxAmmo()
+                  << " gloante, fire rate " << arma.getFireRate()
+                  << ", raza " << arma.getRange() << "\n";
+    }
+
+    game.addScore(50);
+    std::cout << "Scor " << game.getScore() << " la valul " << game.getWave() << "\n";
+
+    EntityPool<Zombie>& hoarda = game.getZombies();
+    if (!hoarda.empty()) {
+        Zombie& urmaritor = hoarda[0];
+        urmaritor.moveTowards(erou.getX(), erou.getY(),
+                              urmaritor.getSpeed() * 2.0);
+        urmaritor.translate(1.0, -1.0);
+        std::cout << urmaritor.getName() << " a ajuns la ("
+                  << urmaritor.getX() << ", " << urmaritor.getY()
+                  << ") cu " << urmaritor.getHp() << " hp si "
+                  << urmaritor.getDamage() << " damage\n";
+    }
+
+    ZombieBoss diablo("Diablo2", 0, 0);
+    diablo.takeDamage(300);
+    if (diablo.getPhase() == 1)
+        diablo.setPhase(2);
+    std::cout << "Boss in faza " << diablo.getPhase() << ":\n";
+    diablo.attack();
+
     GameStatistics& stats = GameStatistics::instance();
     std::cout << "Kills: " << stats.getTotalKills()
               << ", Score: " << stats.getTotalScore()
