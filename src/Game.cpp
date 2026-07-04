@@ -8,6 +8,10 @@ Game::Game(const std::string& playerName, int playerHp, double playerSpeed, doub
     : player(playerName, playerHp, playerSpeed, x, y), score(0), wave(1) {}
 
 Player& Game::getPlayer() { return player; }
+EntityPool<Zombie>& Game::getZombies() { return zombies; }
+int Game::getScore() const { return score; }
+int Game::getWave() const { return wave; }
+void Game::addScore(int points) { score += points; }
 
 void Game::addZombie(std::unique_ptr<Zombie> z) {
     zombies.add(std::move(z));

@@ -1,166 +1,120 @@
-# Nekron
-Nekron is a 2D survival game built with SFML in C++, where a lone human fights 
-against endless waves of zombies. How long can you last?
+<div align="center">
 
-### Tema 0
+<img src="docs/logo.png" alt="Nekron" width="96"/>
 
-- [ ] Nume proiect (poate fi schimbat ulterior)
-- [ ] Scurtă descriere a temei alese, ce v-ați propus să implementați
+# N E K R O N
 
-## Tema 1
+**A fast, bloody, pixel-art bullet heaven.**
+One survivor. Infinite map. Endless waves of the dead.
 
-#### Cerințe
-- [ ] definirea a minim **3-4 clase** folosind compunere cu clasele definite de voi; moștenirile nu se iau în considerare aici
-- [ ] constructori de inițializare cu parametri pentru fiecare clasă
-- [ ] pentru o aceeași (singură) clasă: constructor de copiere, `operator=` de copiere, destructor
-<!-- - [ ] pentru o altă clasă: constructor de mutare, `operator=` de mutare, destructor -->
-<!-- - [ ] pentru o altă clasă: toate cele 5 funcții membru speciale -->
-- [ ] `operator<<` pentru **toate** clasele pentru afișare (`std::ostream`) folosind compunere de apeluri cu `operator<<`
-- [ ] cât mai multe `const` (unde este cazul) și funcții `private`
-- [ ] implementarea a minim 3 funcții membru publice pentru funcționalități netriviale specifice temei alese, dintre care cel puțin 1-2 funcții mai complexe
-  - nu doar citiri/afișări sau adăugat/șters elemente într-un/dintr-un vector
-- [ ] scenariu de utilizare **cu sens** a claselor definite:
-  - crearea de obiecte și apelarea tuturor funcțiilor membru publice în main
-  - vor fi adăugate în fișierul `tastatura.txt` DOAR exemple de date de intrare de la tastatură (dacă există); dacă aveți nevoie de date din fișiere, creați alte fișiere separat
-- [ ] minim 52-60% din codul propriu să fie C++, `.gitattributes` configurat corect
-- [ ] tag de `git`: de exemplu `v0.1`
-- [ ] serviciu de integrare continuă (CI) cu **toate bifele**; exemplu: GitHub Actions
-- [ ] code review #1 2 proiecte
+![C++](https://img.shields.io/badge/C%2B%2B-23-blue?logo=cplusplus&logoColor=white)
+![SFML](https://img.shields.io/badge/SFML-2.6.2-8CC445?logo=sfml&logoColor=white)
+![CMake](https://img.shields.io/badge/CMake-3.26%2B-064F8C?logo=cmake&logoColor=white)
+![Platform](https://img.shields.io/badge/platform-Windows%20%7C%20Linux%20%7C%20macOS-lightgrey)
 
-## Tema 2
+<img src="docs/gameplay.png" alt="gameplay" width="820"/>
 
-#### Cerințe
-- [ ] separarea codului din clase în `.h` (sau `.hpp`) și `.cpp`
-- [ ] moșteniri:
-  - minim o clasă de bază și **3 clase derivate** din aceeași ierarhie; cele 3 derivate moștenesc aceeași clasă de bază
-  - ierarhia trebuie să fie cu bază proprie, nu derivată dintr-o clasă predefinită
-  - [ ] funcții virtuale (pure) apelate prin pointeri de bază din clasa care conține atributul de tip pointer de bază
-    - minim o funcție virtuală va fi **specifică temei** (i.e. nu simple citiri/afișări sau preluate din biblioteci i.e. draw/update/render)
-    - constructori virtuali (clone): sunt necesari, dar nu se consideră funcții specifice temei
-    - afișare virtuală, interfață non-virtuală
-  - [ ] apelarea constructorului din clasa de bază din constructori din derivate
-  - [ ] clasă cu atribut de tip pointer la o clasă de bază cu derivate; aici apelați funcțiile virtuale prin pointer de bază, eventual prin interfața non-virtuală din bază
-    - [ ] suprascris cc/op= pentru copieri/atribuiri corecte, copy and swap
-    - [ ] `dynamic_cast`/`std::dynamic_pointer_cast` pentru downcast cu sens
-    - [ ] smart pointers (recomandat, opțional)
-- [ ] excepții
-  - [ ] ierarhie proprie cu baza `std::exception` sau derivată din `std::exception`; minim **3** clase pentru erori specifice distincte
-    - clasele de excepții trebuie să trateze categorii de erori distincte (exemplu de erori echivalente: citire fișiere cu diverse extensii)
-  - [ ] utilizare cu sens: de exemplu, `throw` în constructor (sau funcție care întoarce un obiect), `try`/`catch` în `main`
-  - această ierarhie va fi complet independentă de ierarhia cu funcții virtuale
-- [ ] funcții și atribute `static`
-- [ ] STL
-- [ ] cât mai multe `const`
-- [ ] funcții *de nivel înalt*, de eliminat cât mai mulți getters/setters/funcții low-level
-- [ ] minim 75-78% din codul propriu să fie C++
-- [ ] la sfârșit: commit separat cu adăugarea unei noi clase derivate fără a modifica restul codului, **pe lângă cele 3 derivate deja adăugate** din aceeași ierarhie
-  - noua derivată nu poate fi una existentă care a fost ștearsă și adăugată din nou
-  - noua derivată va fi integrată în codul existent (adică va fi folosită, nu adăugată doar ca să fie)
-- [ ] tag de `git` pe commit cu **toate bifele**: de exemplu `v0.2`
-- [ ] code review #2 2 proiecte
+*Crits, minimap, muzzle flash, floating damage — mid-fight on wave 1.*
 
-## Tema 3
+</div>
 
-#### Cerințe
-- [ ] 2 șabloane de proiectare (design patterns)
-- [ ] o clasă șablon cu sens; minim **2 instanțieri**
-  - [ ] preferabil și o funcție șablon (template) cu sens; minim 2 instanțieri
-- [ ] minim 80-90% din codul propriu să fie C++
-<!-- - [ ] o specializare pe funcție/clasă șablon -->
-- [ ] tag de `git` pe commit cu **toate bifele**: de exemplu `v0.3` sau `v1.0`
-- [ ] code review #3 2 proiecte
+---
 
-## Instrucțiuni de compilare
+## ⚡ How long can you last?
 
-Proiectul este configurat cu CMake.
+The horde never stops. Every wave is bigger, faster and hungrier than the last.
+Kite, dash, reload, throw a grenade into the crowd and carve your way to the next level-up.
+Every 5th wave a **Boss** crawls out — and past wave 15 they come in pairs.
 
-Instrucțiuni pentru terminal:
+<div align="center">
+<img src="docs/action.png" alt="shotgun action" width="410"/> <img src="docs/levelup.png" alt="level up" width="410"/>
+</div>
 
-1. Pasul de configurare
+## 🎮 Controls
+
+| Key | Action |
+|:---:|--------|
+| `W A S D` | move |
+| `mouse` | aim — weapon tracks the cursor |
+| `LMB` | shoot (hold for full-auto AK) |
+| `Space` | **dash** — short burst with invincibility frames |
+| `G` | **grenade** — arcs to your cursor, big boom |
+| `R` | reload |
+| `scroll` / `1 2 3` / `Q` | switch weapons |
+| `P` | pause |
+| `Esc` | pause menu (resume / restart / music / quit) |
+| `F11` | fullscreen |
+| `H` `C` `M` | change hair / shirt / moustache |
+
+## 🔫 Arsenal
+
+| Weapon | Fire mode | Damage | Mag | Evolution *(after boss waves)* |
+|--------|-----------|:------:|:---:|-------------------------------|
+| **AK** | full-auto, 10 rps | 13 | 30 | 🔥 fires **2 bullets** per shot |
+| **Shotgun** | per click | 7 × 11 | 6 | 🔥 **12 pellets** per blast |
+| **Pistol** | semi-auto | 25 | 12 | 🔥 **piercing** rounds, +50% damage |
+| **Grenade** | `G`, max 3 | 110 AoE | — | knockback, scorch marks, screen shake |
+
+Crits hit for **double damage** (base 10% chance) with a white flash — stack crit upgrades and watch the yellow numbers fly.
+
+## 🧟 Bestiary
+
+| Enemy | HP | Trait |
+|-------|:--:|-------|
+| **Zombie** | 100+ | relentless walker |
+| **Runner** *(wave 2+)* | 50+ | fast, bites hard |
+| **Tank** *(wave 3+)* | 220+ | armored — shrugs off part of every hit |
+| **Spitter** *(wave 4+)* | 70+ | keeps its distance and spits venom projectiles |
+| **Boss** *(every 5th wave)* | 500+ | 💀 under 50% HP it **enrages**: faster, double damage |
+
+All enemies gain HP, speed and damage every wave. There is no ceiling. You will die.
+
+## 📈 Progression
+
+- **XP** from every kill (and coins) fills the green bar → **level up** → pick 1 of 3 upgrades:
+  damage, move speed, max HP, reload speed, fire rate, crit chance
+- **Beat a boss wave** → choose a **weapon evolution**
+- **Drops**: ammo, medkits, grenades, coins — magnet-pulled when you need them
+- **Day/night cycle** — at night the street lamps matter
+- **Best score** is saved between runs
+
+## 🚀 Play it
+
+**Easiest:** grab `Nekron-win64.zip` from [Releases](../../releases), unzip, double-click `Nekron.exe`. No install, no dependencies.
+
+**Build from source:**
+
+```sh
+cmake -S . -B build-sfml -DUSE_SFML=ON -DCMAKE_BUILD_TYPE=Release
+cmake --build build-sfml -j 8
+./build-sfml/Nekron
+```
+
+SFML 2.6.2 is fetched and built automatically — you only need CMake 3.26+ and a C++23 compiler.
+
+<details>
+<summary>🎓 Console demo build (no SFML, used by CI)</summary>
+
 ```sh
 cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
-# sau ./scripts/cmake.sh configure
-```
-
-Sau pe Windows cu GCC folosind Git Bash:
-```sh
-cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug -G Ninja
-# sau ./scripts/cmake.sh configure -g Ninja
-```
-
-Pentru a configura cu ASan, avem opțiunea `-DUSE_ASAN=ON` (nu merge pe Windows cu GCC):
-```sh
-cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug -DUSE_ASAN=ON
-# sau ./scripts/cmake.sh configure -e "-DUSE_ASAN=ON"
-```
-
-
-La acest pas putem cere să generăm fișiere de proiect pentru diverse medii de lucru.
-
-
-2. Pasul de compilare
-```sh
-cmake --build build --config Debug --parallel 6
-# sau ./scripts/cmake.sh build
-```
-
-Cu opțiunea `parallel` specificăm numărul de fișiere compilate în paralel.
-
-
-3. Pasul de instalare (opțional)
-```sh
-cmake --install build --config Debug --prefix install_dir
-# sau ./scripts/cmake.sh install
-```
-
-Vezi și [`scripts/cmake.sh`](scripts/cmake.sh).
-
-Observație: folderele `build/` și `install_dir/` sunt adăugate în fișierul `.gitignore` deoarece
-conțin fișiere generate și nu ne ajută să le versionăm.
-
-
-## Instrucțiuni pentru a rula executabilul
-
-Există mai multe variante:
-
-1. Din directorul de build (implicit `build`). Executabilul se află la locația `./build/oop` după ce a fost rulat pasul de compilare al proiectului (`./scripts/cmake.sh build` - pasul 2 de mai sus).
-
-```sh
+cmake --build build -j 8
 ./build/oop
 ```
 
-2. Din directorul `install_dir`. Executabilul se află la locația `./install_dir/bin/oop` după ce a fost rulat pasul de instalare (`./scripts/cmake.sh install` - pasul 3 de mai sus).
+Runs a console scenario exercising the game logic classes directly. Optional sanitizers via `-DUSE_ASAN=ON`, Valgrind via `./scripts/run_valgrind.sh`.
+</details>
 
-```sh
-./install_dir/bin/oop
-```
+## 🔧 Under the hood
 
-3. Rularea programului folosind Valgrind se poate face executând script-ul `./scripts/run_valgrind.sh` din rădăcina proiectului. Pe Windows acest script se poate rula folosind WSL (Windows Subsystem for Linux). Valgrind se poate rula în modul interactiv folosind: `RUN_INTERACTIVE=true ./scripts/run_valgrind.sh`
+- **Model / view split** — game rules (`Game`, `Player`, `Zombie` hierarchy, `Weapon`, `EntityPool<T>`) know nothing about rendering; the SFML layer (`GameApp`, `WorldRenderer`, `Hud`, `CharacterSprite`) drives them
+- **Infinite deterministic world** — the map streams in hashed chunks: same seed, same forest, no storage
+- **Layered character** — body, shirt, hair, moustache and shadow are separate sprites composited per frame
+- **100% procedural audio** — every gunshot, explosion and the music loop are synthesized at startup; drop your own `assets/music.ogg` to override the soundtrack
+- **Zero-asset effects** — blood, decals, damage numbers, vignette, hit-stop, screen shake, day/night, minimap
+- OOP toolbox: virtual hierarchies + `dynamic_cast`, factory & singleton patterns, custom exception hierarchy used for real control flow, templates, copy-and-swap, STL throughout
 
-Implicit, nu se rulează interactiv, iar datele pentru `std::cin` sunt preluate din fișierul `tastatura.txt`.
+## 📜 License & credits
 
-```sh
-RUN_INTERACTIVE=true ./scripts/run_valgrind.sh
-# sau
-./scripts/run_valgrind.sh
-```
-
-4. Pentru a rula executabilul folosind ASan, este nevoie ca la pasul de configurare (vezi mai sus) să fie activat acest sanitizer. Ar trebui să meargă pe macOS și Linux. Pentru Windows, ar merge doar cu MSVC (nerecomandat).
-
-Comanda este aceeași ca la pasul 1 sau 2. Nu merge combinat cu Valgrind.
-
-```sh
-./build/oop
-# sau
-./install_dir/bin/oop
-```
-
-## License
-
-The project is licensed under [AGPLv3](LICENSE).
-
-The [template repository](https://github.com/mcmarius/oop-template) itself is licensed under [Unlicense](LICENSE.template).
-
-## Resurse
-
-- adăugați trimiteri **detaliate** către resursele externe care v-au ajutat sau pe care le-ați folosit
+- Code licensed under [AGPLv3](LICENSE); based on the [oop-template](https://github.com/mcmarius/oop-template) ([Unlicense](LICENSE.template))
+- Built with [SFML](https://www.sfml-dev.org/)
+- Pixel-art sprite pack included in `assets/`; grenade sprite and all sound effects made for this project

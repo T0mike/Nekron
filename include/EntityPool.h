@@ -18,6 +18,9 @@ public:
     std::size_t size() const { return entities.size(); }
     bool empty() const { return entities.empty(); }
 
+    T& operator[](std::size_t index) { return *entities[index]; }
+    const T& operator[](std::size_t index) const { return *entities[index]; }
+
     void removeDead() {
         entities.erase(
             std::remove_if(entities.begin(), entities.end(),

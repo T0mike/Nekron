@@ -11,6 +11,9 @@ public:
     Zombie* clone() const override;
     void attack() override;
 
+    int getPhase() const;
+    void setPhase(int p);
+
     ZombieBoss& operator=(ZombieBoss other);
     friend void swap(ZombieBoss& a, ZombieBoss& b);
 

@@ -3,6 +3,7 @@
 #include "../include/ZombieTank.h"
 #include "../include/ZombieBoss.h"
 #include "../include/ZombieRunner.h"
+#include "../include/ZombieSpitter.h"
 #include "../include/GameExceptions.h"
 
 std::unique_ptr<Zombie> ZombieFactory::create(ZombieType type, const std::string& name,
@@ -16,6 +17,8 @@ std::unique_ptr<Zombie> ZombieFactory::create(ZombieType type, const std::string
             return std::make_unique<ZombieBoss>(name, x, y);
         case ZombieType::Runner:
             return std::make_unique<ZombieRunner>(name, x, y);
+        case ZombieType::Spitter:
+            return std::make_unique<ZombieSpitter>(name, x, y);
     }
     throw GameException("Tip de zombie necunoscut in ZombieFactory!");
 }

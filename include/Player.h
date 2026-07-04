@@ -16,7 +16,17 @@ public:
     friend std::ostream& operator<<(std::ostream& os, const Player& p);
     void addWeapon(const Weapon& w);
     void takeDamage(int damage);
+    void heal(int amount, int maxHp);
     bool isAlive() const;
+
+    double getX() const;
+    double getY() const;
+    int getHp() const;
+    double getSpeed() const;
+    void move(double dx, double dy);
+
+    std::size_t weaponCount() const;
+    Weapon& weaponAt(std::size_t index);
 };
 
 #endif

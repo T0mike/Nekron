@@ -1,6 +1,7 @@
 #include "../include/Zombie.h"
 #include <iostream>
 #include <algorithm>
+#include <cmath>
 
 int Zombie::count = 0;
 
@@ -72,6 +73,29 @@ int Zombie::getCount() {
 
 void Zombie::increaseHp(int amount) {
     hp += amount;
+}
+
+double Zombie::getX() const { return x; }
+double Zombie::getY() const { return y; }
+double Zombie::getSpeed() const { return speed; }
+int Zombie::getDamage() const { return damage; }
+int Zombie::getHp() const { return hp; }
+
+void Zombie::moveTowards(double tx, double ty, double dist) {
+    double dx = tx - x;
+    double dy = ty - y;
+    double len = std::sqrt(dx * dx + dy * dy);
+    if (len < 0.0001 || dist <= 0.0)
+        return;
+    if (dist > len)
+        dist = len;
+    x += dx / len * dist;
+    y += dy / len * dist;
+}
+
+void Zombie::translate(double dx, double dy) {
+    x += dx;
+    y += dy;
 }
 
 void swap(Zombie& a, Zombie& b) {

@@ -10,6 +10,9 @@ Zombie* ZombieBoss::clone() const{
     return new ZombieBoss(*this);
 }
 
+int ZombieBoss::getPhase() const { return phase; }
+void ZombieBoss::setPhase(int p) { phase = p; }
+
 void ZombieBoss::attack() {
     if(phase == 1){
         std::cout << name << " ataca normal pentru " << damage << " damage\n";

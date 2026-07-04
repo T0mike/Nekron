@@ -12,7 +12,7 @@ Zombie* ZombieRunner::clone() const {
 
 void ZombieRunner::attack() {
     if(stamina){
-        std:: cout << name << " alearga si musca pentru " << damage * 2 << " damage!";
+        std:: cout << name << " alearga si musca pentru " << damage * 2 << " damage!\n";
         stamina--;
     }else{
         std::cout << name << " musca obosit pentru " << damage << " damage!\n";

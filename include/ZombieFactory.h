@@ -4,7 +4,7 @@
 #include <string>
 #include "Zombie.h"
 
-enum class ZombieType { Normal, Tank, Boss, Runner };
+enum class ZombieType { Normal, Tank, Boss, Runner, Spitter };
 
 class ZombieFactory {
 public:

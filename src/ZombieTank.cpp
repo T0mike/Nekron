@@ -2,7 +2,7 @@
 #include <iostream>
 
 ZombieTank :: ZombieTank(const std::string& name, double x, double y)
-    :Zombie(name, 300, 2.0, x, y, 20), armor(10){}
+    :Zombie(name, 220, 2.0, x, y, 20), armor(4){}
 
 ZombieTank:: ZombieTank(const ZombieTank& z) : Zombie(z), armor(z.armor) {}
 

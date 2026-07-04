@@ -25,4 +25,10 @@ public:
     explicit InvalidWeaponException(const std::string& msg) : GameException(msg) {}
 };
 
+class AssetLoadException : public GameException {
+public:
+    explicit AssetLoadException(const std::string& path)
+        : GameException("Failed to load asset: " + path) {}
+};
+
 #endif

@@ -18,6 +18,10 @@ class Game {
 public:
     Game(const std::string& playerName, int playerHp, double playerSpeed, double x, double y);
     Player& getPlayer();
+    EntityPool<Zombie>& getZombies();
+    int getScore() const;
+    int getWave() const;
+    void addScore(int points);
     void addZombie(std::unique_ptr<Zombie> z);
     void spawnWave(int count);
     bool isGameOver() const;

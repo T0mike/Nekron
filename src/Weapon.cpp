@@ -1,5 +1,6 @@
 #include "../include/Weapon.h"
 #include "../include/GameExceptions.h"
+#include <algorithm>
 
 
 Weapon::Weapon(const std::string& name, int damage, double fireRate, int ammo, int maxAmmo, int range) {
@@ -17,6 +18,10 @@ void Weapon::reload() {
     this->ammo = this->maxAmmo;
 }
 
+void Weapon::addAmmo(int amount) {
+    ammo = std::min(ammo + amount, maxAmmo);
+}
+
 bool Weapon::isOutOfAmmo() const {
     return this->ammo == 0;
 }
@@ -27,6 +32,13 @@ bool Weapon::fire() {
     this->ammo--;
     return true;
 }
+
+const std::string& Weapon::getName() const { return name; }
+int Weapon::getDamage() const { return damage; }
+double Weapon::getFireRate() const { return fireRate; }
+int Weapon::getAmmo() const { return ammo; }
+int Weapon::getMaxAmmo() const { return maxAmmo; }
+int Weapon::getRange() const { return range; }
 
 std::ostream& operator<<(std::ostream& os, const Weapon& w) {
     os << "name: " << w.name << "\n";

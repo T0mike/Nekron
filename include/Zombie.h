@@ -27,6 +27,14 @@ public:
     const std::string& getName() const;
     void increaseHp(int amount);
 
+    double getX() const;
+    double getY() const;
+    double getSpeed() const;
+    int getDamage() const;
+    int getHp() const;
+    void moveTowards(double tx, double ty, double dist);
+    void translate(double dx, double dy);
+
     static int getCount();
 
     friend std::ostream& operator<<(std::ostream& os, const Zombie& z);

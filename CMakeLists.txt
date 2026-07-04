@@ -33,7 +33,7 @@ if(USE_SFML)
     FetchContent_Declare(
         SFML
         GIT_REPOSITORY https://github.com/SFML/SFML.git
-        GIT_TAG        2.6.1
+        GIT_TAG        2.6.2
         GIT_SHALLOW    1
         GIT_PROGRESS   ON
     )
@@ -63,6 +63,7 @@ target_sources(${MAIN_EXECUTABLE_NAME}
         src/ZombieTank.cpp
         src/ZombieBoss.cpp
         src/ZombieRunner.cpp
+        src/ZombieSpitter.cpp
         src/ZombieFactory.cpp
         src/GameStatistics.cpp
 )
@@ -86,8 +87,28 @@ target_include_directories(${MAIN_EXECUTABLE_NAME} SYSTEM PRIVATE
 # target_include_directories(${MAIN_EXECUTABLE_NAME} SYSTEM PRIVATE ${<SomeLib>_SOURCE_DIR}/include)
 # target_link_directories(${MAIN_EXECUTABLE_NAME} PRIVATE ${<SomeLib>_BINARY_DIR}/lib)
 if(USE_SFML)
+    target_sources(${MAIN_EXECUTABLE_NAME}
+        PRIVATE
+            src/TextureManager.cpp
+            src/CharacterSprite.cpp
+            src/WorldRenderer.cpp
+            src/Hud.cpp
+            src/SoundManager.cpp
+            src/GameApp.cpp
+    )
     target_link_libraries(${MAIN_EXECUTABLE_NAME} sfml-graphics sfml-window sfml-system sfml-audio)
     target_compile_definitions(${MAIN_EXECUTABLE_NAME} PRIVATE USE_SFML)
+    set_target_properties(${MAIN_EXECUTABLE_NAME} PROPERTIES OUTPUT_NAME "Nekron")
+    if(WIN32)
+        enable_language(RC)
+        target_sources(${MAIN_EXECUTABLE_NAME} PRIVATE icon.rc)
+        target_link_libraries(${MAIN_EXECUTABLE_NAME} sfml-main)
+        set_target_properties(${MAIN_EXECUTABLE_NAME} PROPERTIES WIN32_EXECUTABLE TRUE)
+        add_custom_command(TARGET ${MAIN_EXECUTABLE_NAME} POST_BUILD
+            COMMAND ${CMAKE_COMMAND} -E copy_if_different
+                ${sfml_SOURCE_DIR}/extlibs/bin/x64/openal32.dll
+                $<TARGET_FILE_DIR:${MAIN_EXECUTABLE_NAME}>)
+    endif()
 endif()
 
 ###############################################################################

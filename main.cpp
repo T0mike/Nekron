@@ -13,9 +13,23 @@
 #include "include/GameStatistics.h"
 #include "include/EntityPool.h"
 #ifdef USE_SFML
-#include <SFML/Graphics.hpp>
-#endif
+#include "include/GameApp.h"
 
+int main() {
+    try {
+        GameApp app;
+        app.run();
+    } catch (const GameException& e) {
+        std::cerr << "Game error: " << e.what() << "\n";
+        return 1;
+    } catch (const std::exception& e) {
+        std::cerr << "Error: " << e.what() << "\n";
+        return 1;
+    }
+    return 0;
+}
+
+#else
 
 int main() {
     ZombieNormal normal("Ion", 100, 5, 0, 0, 10);
@@ -115,110 +129,5 @@ int main() {
     std::cout << "Dupa reset -> kills: " << stats.getTotalKills() << "\n";
 
     return 0;
-
-    // sf::RenderWindow window(sf::VideoMode(800, 600), "Nekron");
-    // window.setFramerateLimit(60);
-
-    // sf::Texture grassTexture;
-    // grassTexture.loadFromFile("assets/Sprites/Objects&Tiles/TileMapGrass.png");
-
-    // sf::Texture bodyTexture;
-    // bodyTexture.loadFromFile("assets/Sprites/Character/Body/Body.png");
-
-    // sf::Texture shirtTexture;
-    // shirtTexture.loadFromFile("assets/Sprites/Character/Shirt/Shirt1.png");
-
-    // sf::Texture hairTexture;
-    // hairTexture.loadFromFile("assets/Sprites/Character/Hair/Hair1.png");
-
-    // const int SCALE = 4;
-    // const int TILE = 16;
-    // const int CHAR_FRAME = 32;
-    // const int GRASS_BLOCK = 48;
-
-    // sf::Sprite grassTile(grassTexture);
-    // grassTile.setTextureRect(sf::IntRect(0, 0, GRASS_BLOCK, GRASS_BLOCK));
-    // grassTile.setScale(SCALE, SCALE);
-
-    // sf::Sprite bodySprite(bodyTexture);
-    // bodySprite.setTextureRect(sf::IntRect(0, 0, CHAR_FRAME, CHAR_FRAME));
-    // bodySprite.setScale(SCALE, SCALE);
-
-    // sf::Sprite shirtSprite(shirtTexture);
-    // shirtSprite.setTextureRect(sf::IntRect(0, 0, CHAR_FRAME, CHAR_FRAME));
-    // shirtSprite.setScale(SCALE, SCALE);
-
-    // sf::Sprite hairSprite(hairTexture);
-    // hairSprite.setTextureRect(sf::IntRect(0, 0, CHAR_FRAME, CHAR_FRAME));
-    // hairSprite.setScale(SCALE, SCALE);
-
-    // sf::Vector2f playerPos(0.f, 0.f);
-    // const float SPEED = 4.f;
-    // const int FRAME_COUNT = 8;
-    // const float FRAME_TIME = 0.1f;
-
-    // int currentFrame = 0;
-    // float frameTimer = 0.f;
-    // sf::Clock clock;
-
-    // sf::View camera(sf::FloatRect(0, 0, 800, 600));
-
-    // while (window.isOpen()) {
-    //     sf::Event event;
-    //     while (window.pollEvent(event))
-    //         if (event.type == sf::Event::Closed)
-    //             window.close();
-
-    //     float dt = clock.restart().asSeconds();
-
-    //     bool moving = false;
-    //     if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) { playerPos.y -= SPEED; moving = true; }
-    //     if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) { playerPos.y += SPEED; moving = true; }
-    //     if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) { playerPos.x -= SPEED; moving = true; }
-    //     if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) { playerPos.x += SPEED; moving = true; }
-
-    //     if (moving) {
-    //         frameTimer += dt;
-    //         if (frameTimer >= FRAME_TIME) {
-    //             frameTimer = 0.f;
-    //             currentFrame = (currentFrame + 1) % FRAME_COUNT;
-    //         }
-    //     } else {
-    //         currentFrame = 0;
-    //         frameTimer = 0.f;
-    //     }
-
-    //     sf::IntRect frameRect(currentFrame * CHAR_FRAME, 0, CHAR_FRAME, CHAR_FRAME);
-    //     bodySprite.setTextureRect(frameRect);
-    //     shirtSprite.setTextureRect(frameRect);
-    //     hairSprite.setTextureRect(frameRect);
-
-    //     bodySprite.setPosition(playerPos);
-    //     shirtSprite.setPosition(playerPos);
-    //     hairSprite.setPosition(playerPos);
-
-    //     camera.setCenter(playerPos.x + CHAR_FRAME * SCALE / 2.f, playerPos.y + CHAR_FRAME * SCALE / 2.f);
-    //     window.setView(camera);
-
-    //     window.clear();
-
-    //     const int blockSize = GRASS_BLOCK * SCALE;
-    //     int startX = static_cast<int>((camera.getCenter().x - 400) / blockSize) - 1;
-    //     int endX   = startX + 800 / blockSize + 3;
-    //     int startY = static_cast<int>((camera.getCenter().y - 300) / blockSize) - 1;
-    //     int endY   = startY + 600 / blockSize + 3;
-
-    //     for (int x = startX; x < endX; x++)
-    //         for (int y = startY; y < endY; y++) {
-    //             grassTile.setPosition(static_cast<float>(x * blockSize), static_cast<float>(y * blockSize));
-    //             window.draw(grassTile);
-    //         }
-
-    //     window.draw(bodySprite);
-    //     window.draw(shirtSprite);
-    //     window.draw(hairSprite);
-
-    //     window.display();
-    // }
-    // return 0;
 }
+#endif
